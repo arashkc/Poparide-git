@@ -1,76 +1,58 @@
-// src/pages/TripDetails.jsx
 import React from "react";
-import styles from "../styles/TripDetails.module.css";
+import styles from "../styles/TripDetail.module.css";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 
-const TripDetails = () => {
+const TripDetail = () => {
   const navigate = useNavigate();
 
-  // Dummy trip data (replace with real props or fetch later)
-  const trip = {
-    origin: "رشت",
-    destination: "تهران",
-    date: "1404/03/12",
-    time: "08:30",
-    driver: {
-      name: "علی رضایی",
-      rating: 4.8,
-      avatar: "/images/driver.jpg",
-    },
-    price: "150,000 تومان",
-    totalSeats: 4,
-    remainingSeats: 2,
-    description:
-      "حرکت دقیقاً سر ساعت. فقط یک چمدان کوچک مجاز است. لطفاً راس ساعت در محل حضور داشته باشید.",
+  const handleBooking = () => {
+    alert("رزرو شما ثبت شد!");
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        {/* Route Info */}
         <div className={styles.route}>
-          <h2>
-            {trip.origin} <ArrowRight className={styles.icon} /> {trip.destination}
-          </h2>
-          <p>{trip.date} - {trip.time}</p>
+          <span>رشت</span>
+          <span className={styles.arrow}>→</span>
+          <span>تهران</span>
         </div>
 
-        {/* Driver Info */}
-        <div className={styles.driver}>
-          <img src={trip.driver.avatar} alt="driver" />
-          <div>
-            <h4>{trip.driver.name}</h4>
-            <p>امتیاز: {trip.driver.rating} ⭐</p>
+        <div className={styles.section}>
+          <div className={styles.driverInfo}>
+            <img src="/default-avatar.png" alt="Driver" />
+            <div>
+              <p className={styles.driverName}>علی رضایی</p>
+              <p className={styles.rating}>امتیاز: ۴.۸ ★</p>
+            </div>
           </div>
+
+          <div className={styles.tripDetails}>
+            <p>
+              <strong>تاریخ حرکت:</strong> ۲۵ اردیبهشت، ساعت ۰۸:۰۰ صبح
+            </p>
+            <p>
+              <strong>خودرو:</strong> پژو ۲۰۶ - سفید
+            </p>
+            <p>
+              <strong>صندلی‌های باقی‌مانده:</strong> ۲ از ۴
+            </p>
+            <p>
+              <strong>هزینه هر صندلی:</strong> ۱۸۰٬۰۰۰ تومان
+            </p>
+          </div>
+
+          <button onClick={handleBooking} className={styles.bookBtn}>
+            رزرو صندلی
+          </button>
         </div>
-
-        {/* Seats and Price */}
-        <div className={styles.info}>
-          <p>
-            {trip.remainingSeats} صندلی باقی‌مانده از {trip.totalSeats} صندلی
-          </p>
-          <p className={styles.price}>{trip.price}</p>
-        </div>
-
-        {/* Description */}
-        <div className={styles.description}>
-          <h5>توضیحات راننده</h5>
-          <p>{trip.description}</p>
-        </div>
-
-        {/* Button */}
-        <button className={styles.button} onClick={() => alert("در حال توسعه")}>
-          رزرو این سفر
-        </button>
-
-        {/* Back */}
-        <button className={styles.back} onClick={() => navigate(-1)}>
-          بازگشت
-        </button>
       </div>
+
+      <button onClick={() => navigate("/trips")} className={styles.backLink}>
+        ← بازگشت به لیست سفرها
+      </button>
     </div>
   );
 };
 
-export default TripDetails;
+export default TripDetail;

@@ -1,120 +1,96 @@
-/* src/styles/TripDetails.module.css */
-
 .container {
-    min-height: 100vh;
-    background: linear-gradient(to bottom right, #f8fafc, #e0f2fe);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    direction: rtl;
-  }
-  
-  .card {
-    background-color: #ffffff;
-    border-radius: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-    padding: 2rem;
-    max-width: 600px;
-    width: 100%;
-  }
-  
-  .route {
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-  
-  .route h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #1e3a8a;
-  }
-  
-  .route p {
-    font-size: 0.95rem;
-    color: #475569;
-  }
-  
-  .icon {
-    display: inline;
-    vertical-align: middle;
-    margin: 0 8px;
-  }
-  
-  .driver {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 1rem 0;
-  }
-  
-  .driver img {
-    width: 64px;
-    height: 64px;
-    border-radius: 9999px;
-    object-fit: cover;
-    border: 2px solid #3b82f6;
-  }
-  
-  .driver h4 {
-    font-size: 1.1rem;
-    margin-bottom: 4px;
-  }
-  
-  .driver p {
-    font-size: 0.9rem;
-    color: #6b7280;
-  }
-  
-  .info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1rem;
-    margin: 1rem 0;
-    color: #1e40af;
-  }
-  
-  .price {
-    font-weight: bold;
-    color: #16a34a;
-  }
-  
-  .description h5 {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    color: #0f172a;
-  }
-  
-  .description p {
-    font-size: 0.95rem;
-    color: #475569;
-    line-height: 1.6;
-  }
-  
-  .button {
-    width: 100%;
-    background-color: #3b82f6;
-    color: white;
-    padding: 0.8rem;
-    border-radius: 0.75rem;
-    font-weight: bold;
-    margin-top: 1rem;
-    transition: background-color 0.3s ease;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .button:hover {
-    background-color: #2563eb;
-  }
-  
-  .back {
-    margin-top: 1rem;
-    background: none;
-    border: none;
-    color: #64748b;
-    cursor: pointer;
-    font-size: 0.9rem;
-    text-decoration: underline;
-  }
-  
+  direction: rtl;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to bottom left, #f9fafb, #eef2ff);
+  min-height: 100vh;
+}
+
+.card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.route {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1f2937;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.arrow {
+  margin: 0 1rem;
+  font-size: 1.2rem;
+  color: #6b7280;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.driverInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.driverInfo img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #e5e7eb;
+}
+
+.driverName {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #111827;
+}
+
+.rating {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.tripDetails {
+  font-size: 0.95rem;
+  color: #374151;
+  line-height: 1.8;
+}
+
+.bookBtn {
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.bookBtn:hover {
+  background-color: #2563eb;
+}
+
+.backLink {
+  font-size: 0.9rem;
+  color: #3b82f6;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
