@@ -1,4 +1,3 @@
-// RideCard.jsx
 import React from "react";
 import styles from "./RideCard.module.css";
 import { useNavigate } from "react-router-dom";

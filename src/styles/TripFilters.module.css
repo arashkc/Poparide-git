@@ -1,0 +1,51 @@
+.filters {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+  display: grid;
+  gap: 1.5rem;
+  direction: rtl;
+}
+
+.heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  text-align: right;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filterGroup label {
+  font-size: 0.9rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.filterGroup input[type="text"],
+.filterGroup input[type="number"],
+.filterGroup input[type="date"] {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.filterGroup input:focus {
+  border-color: #4f46e5;
+}
+
+.priceRange {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

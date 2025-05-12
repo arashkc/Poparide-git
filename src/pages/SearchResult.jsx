@@ -1,59 +1,74 @@
-// src/pages/SearchResults.jsx
-import React, { useState } from "react";
-import styles from "../styles/SearchResults.module.css";
-import { tripsMock } from "../data/tripsMock";
+import React, { useState, useEffect } from "react";
+import RideCard from "../components/RideCard";
+import TripFilters from "../components/TripFilters";
+import styles from "./SearchResults.module.css";
 
 const SearchResults = () => {
-  const [trips, setTrips] = useState(tripsMock);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [allTrips, setAllTrips] = useState([]); // fetched from backend in the future
+  const [filteredTrips, setFilteredTrips] = useState([]);
+  const [filters, setFilters] = useState({
+    origin: "",
+    destination: "",
+    minPrice: 0,
+    maxPrice: 10000000,
+    date: "",
+  });
 
-  const handleSearch = (e) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-    const filtered = tripsMock.filter(
-      (trip) => trip.origin.includes(query) || trip.destination.includes(query)
-    );
-    setTrips(filtered);
+  useEffect(() => {
+    // Simulate fetching trips (replace with API later)
+    const sampleTrips = [
+      {
+        id: 1,
+        origin: "رشت",
+        destination: "تهران",
+        date: "2025-05-20",
+        price: 150000,
+        seats: 4,
+        takenSeats: 2,
+      },
+      {
+        id: 2,
+        origin: "اصفهان",
+        destination: "تهران",
+        date: "2025-05-21",
+        price: 220000,
+        seats: 3,
+        takenSeats: 3,
+      },
+    ];
+    setAllTrips(sampleTrips);
+    setFilteredTrips(sampleTrips);
+  }, []);
+
+  useEffect(() => {
+    applyFilters();
+  }, [filters]);
+
+  const applyFilters = () => {
+    const result = allTrips.filter((trip) => {
+      const matchesOrigin =
+        !filters.origin || trip.origin.includes(filters.origin);
+      const matchesDestination =
+        !filters.destination || trip.destination.includes(filters.destination);
+      const matchesPrice =
+        trip.price >= filters.minPrice && trip.price <= filters.maxPrice;
+      const matchesDate = !filters.date || trip.date === filters.date;
+
+      return matchesOrigin && matchesDestination && matchesPrice && matchesDate;
+    });
+
+    setFilteredTrips(result);
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.searchBarWrapper}>
-        <input
-          type="text"
-          placeholder="جستجوی مقصد یا مبدا..."
-          className={styles.searchInput}
-          value={searchQuery}
-          onChange={handleSearch}
-        />
-      </div>
-
-      <div className={styles.resultsWrapper}>
-        {trips.map((trip, index) => (
-          <div className={styles.card} key={index}>
-            <div className={styles.route}>
-              <span className={styles.city}>{trip.origin}</span>
-              <span className={styles.arrow}>→</span>
-              <span className={styles.city}>{trip.destination}</span>
-            </div>
-
-            <div className={styles.details}>
-              <p className={styles.driver}>راننده: {trip.driver}</p>
-              <p className={styles.seats}>
-                {trip.availableSeats} صندلی باقی مانده از {trip.totalSeats}{" "}
-                صندلی
-              </p>
-              <p className={styles.price}>
-                {trip.price.toLocaleString()} تومان
-              </p>
-            </div>
-
-            <div className={styles.footer}>
-              <p className={styles.departure}>{trip.departure}</p>
-              <button className={styles.bookButton}>رزرو</button>
-            </div>
-          </div>
-        ))}
+    <div className={styles.searchResults}>
+      <TripFilters filters={filters} setFilters={setFilters} />
+      <div className={styles.resultsGrid}>
+        {filteredTrips.length === 0 ? (
+          <p className={styles.noResults}>نتیجه‌ای پیدا نشد</p>
+        ) : (
+          filteredTrips.map((trip) => <RideCard key={trip.id} trip={trip} />)
+        )}
       </div>
     </div>
   );
