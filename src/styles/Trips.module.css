@@ -1,146 +1,96 @@
-/* src/styles/Trips.module.css */
-
-.container {
-  min-height: 100vh;
-  background: linear-gradient(to bottom right, #f9fafb, #eef2f7);
-  padding: 2rem;
-  font-family: "Vazirmatn", sans-serif;
-  direction: rtl;
-}
-
-.header {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 800;
-  color: #1e3a8a;
-  margin-bottom: 2rem;
-  animation: fadeInDown 0.8s ease forwards;
-}
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  animation: fadeIn 1s ease forwards;
-}
-
-.filterGroup {
+/* General container for trips page */
+.tripsContainer {
   display: flex;
   flex-direction: column;
-  min-width: 180px;
+  padding: 30px;
+  background-color: #f7f7f7;
+  font-family: "Roboto", sans-serif;
 }
 
-.filterLabel {
-  font-size: 0.9rem;
-  margin-bottom: 0.25rem;
-  color: #374151;
+/* Title styling */
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: "Poppins", sans-serif;
 }
 
-.input,
-.select,
-.range {
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
-  border: 1px solid #cbd5e1;
-  font-size: 0.95rem;
-  background: #fff;
+/* Filters section (search box and slider) */
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  background-color: #fff;
+  padding: 15px 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.input {
+  width: 240px;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+}
+
+.input:focus {
+  border-color: #007bff;
   outline: none;
-  transition: all 0.2s ease;
 }
 
-.input:focus,
-.select:focus,
-.range:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+.sliderContainer {
+  width: 55%;
 }
 
+.slider {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.sliderContainer label {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+/* Cards grid (where the RideCards are displayed) */
 .cardsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
-  animation: fadeInUp 1s ease forwards;
+  gap: 20px;
+  padding: 10px;
 }
 
-.tripCard {
-  background: #ffffff;
-  border-radius: 1rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  padding: 1.5rem;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease;
-}
-
-.tripCard:hover {
-  transform: translateY(-5px);
-}
-
-.tripRoute {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 0.75rem;
-}
-
-.tripInfo {
-  font-size: 0.9rem;
-  color: #475569;
-  margin-bottom: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-}
-
-.countdown {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: #ef4444;
-  font-weight: 600;
-  text-align: left;
-}
-
+/* No results message */
 .noResults {
   text-align: center;
-  font-size: 1rem;
-  color: #9ca3af;
-  margin-top: 2rem;
+  font-size: 20px;
+  color: #888;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+/* Responsive for small screens */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
+  .sliderContainer {
+    width: 100%;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  .input {
+    width: 100%;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .cardsGrid {
+    grid-template-columns: 1fr;
   }
 }

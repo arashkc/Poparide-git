@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import RideCard from "../components/RideCard";
+import RideCard from "../components/Ridecard";
 import TripFilters from "../components/TripFilters";
 import styles from "./SearchResults.module.css";
 

@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from "react";
-import styles from "./RideCard.module.css";
+import styles from "../styles/RideCard.module.css";
 import { Link } from "react-router-dom";
+import { convertToPersianNumbers } from "../utility/util";
 
 const RideCard = ({ ride }) => {
   const {
     id,
-    origin,
-    destination,
-    date,
-    time,
-    price,
-    seatsTotal,
-    seatsLeft,
-    driver,
-    car,
-    duration,
-  } = ride;
+    origin = "نامشخص",
+    destination = "نامشخص",
+    departureTime = new Date(),
+    cost = 0,
+    seatsTotal = 0,
+    seatsLeft = 0,
+    driver = { name: "نامشخص", avatar: "default-avatar.png" },
+    car = "نامشخص",
+    duration = "نامشخص",
+  } = ride || {};
 
   const [countdown, setCountdown] = useState("");
 
+  // Format the date and time
+  const rideDateTime = new Date(departureTime);
+  const date = rideDateTime.toLocaleDateString("fa-IR"); // Persian date format
+  const time = rideDateTime.toLocaleTimeString("fa-IR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }); // Persian time format
+
   useEffect(() => {
-    const rideDateTime = new Date(`${date}T${time}`);
     const interval = setInterval(() => {
       const now = new Date();
       const diff = rideDateTime - now;
@@ -31,24 +38,26 @@ const RideCard = ({ ride }) => {
       } else if (diff > 0) {
         const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
         const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        setCountdown(`در ${hours}ساعت و ${minutes}دقیقه`);
+        setCountdown(`در ${hours} ساعت و ${minutes} دقیقه`);
       } else {
         setCountdown("در حال حرکت یا تمام شده");
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [date, time]);
+  }, [rideDateTime]);
 
   return (
-    <Link to={`/tripdetails/${id}`} className={styles.card}>
+    <Link to={`/tripdetails/${id || "default-id"}`} className={styles.card}>
       <div className={styles.header}>
         <div className={styles.route}>
           <span className={styles.city}>{origin}</span>
           <span className={styles.arrow}>→</span>
           <span className={styles.city}>{destination}</span>
         </div>
-        <div className={styles.price}>{price.toLocaleString()} تومان</div>
+        <div className={styles.price}>
+          {convertToPersianNumbers((cost || 0).toLocaleString())} تومان
+        </div>
       </div>
 
       <div className={styles.details}>
@@ -65,7 +74,8 @@ const RideCard = ({ ride }) => {
         <div className={styles.infoBlock}>
           <span>صندلی‌ها:</span>
           <strong>
-            {seatsLeft} از {seatsTotal}
+            {convertToPersianNumbers(seatsLeft)} از{" "}
+            {convertToPersianNumbers(seatsTotal)}
           </strong>
         </div>
       </div>
@@ -75,12 +85,12 @@ const RideCard = ({ ride }) => {
       <div className={styles.footer}>
         <div className={styles.driver}>
           <img
-            src={driver.avatar}
-            alt={driver.name}
+            src={driver?.avatar || "default-avatar.png"}
+            alt={driver?.name || "نامشخص"}
             className={styles.avatar}
           />
           <div>
-            <div className={styles.name}>{driver.name}</div>
+            <div className={styles.name}>{driver?.name || "نامشخص"}</div>
             <div className={styles.car}>{car}</div>
           </div>
         </div>

@@ -1,6 +1,7 @@
-// src/pages/Trips.jsx
 import React, { useState, useEffect } from "react";
 import styles from "../styles/Trips.module.css";
+import RideCard from "../components/Ridecard";
+import { convertToPersianNumbers } from "../utility/util";
 
 const mockTrips = [
   {
@@ -9,9 +10,11 @@ const mockTrips = [
     destination: "رشت",
     availableSeats: 2,
     totalSeats: 4,
-    departureTime: new Date(Date.now() + 2 * 60 * 60 * 1000), 
+    departureTime: new Date(Date.now() + 2 * 60 * 60 * 1000),
     cost: 150000,
-    driver: "علی رضایی",
+    driver: { name: "علی رضایی", avatar: "driver1-avatar.png" },
+    car: "پژو",
+    duration: "4 ساعت",
   },
   {
     id: 2,
@@ -19,28 +22,13 @@ const mockTrips = [
     destination: "شیراز",
     availableSeats: 3,
     totalSeats: 3,
-    departureTime: new Date(Date.now() + 30 * 60 * 60 * 1000), 
+    departureTime: new Date(Date.now() + 30 * 60 * 60 * 1000),
     cost: 300000,
-    driver: "مهدی موسوی",
+    driver: { name: "مهدی موسوی", avatar: "driver2-avatar.png" },
+    car: "پراید",
+    duration: "5 ساعت",
   },
 ];
-
-const formatTimeRemaining = (departureTime) => {
-  const now = new Date();
-  const diffMs = departureTime - now;
-
-  if (diffMs <= 0) return "در حال حرکت";
-
-  const diffMins = Math.floor(diffMs / (1000 * 60));
-  if (diffMins > 1440) {
-    const days = Math.floor(diffMins / 1440);
-    return `${days} روز`;
-  } else {
-    const hours = Math.floor(diffMins / 60);
-    const minutes = diffMins % 60;
-    return `${hours} ساعت و ${minutes} دقیقه`;
-  }
-};
 
 const Trips = () => {
   const [search, setSearch] = useState("");
@@ -69,7 +57,9 @@ const Trips = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <div className={styles.sliderContainer}>
-          <label>حداکثر هزینه: {cost.toLocaleString()} تومان</label>
+          <label>
+            حداکثر هزینه: {convertToPersianNumbers(cost.toLocaleString())} تومان
+          </label>
           <input
             type="range"
             min={50000}
@@ -86,24 +76,7 @@ const Trips = () => {
         {filteredTrips.length === 0 ? (
           <p className={styles.noResults}>سفری یافت نشد</p>
         ) : (
-          filteredTrips.map((trip) => (
-            <div key={trip.id} className={styles.tripCard}>
-              <div className={styles.route}>
-                <span>{trip.origin}</span>
-                <span> ← </span>
-                <span>{trip.destination}</span>
-              </div>
-              <p className={styles.driver}>راننده: {trip.driver}</p>
-              <p className={styles.seats}>
-                {trip.availableSeats} صندلی باقیمانده از {trip.totalSeats} صندلی
-              </p>
-              <p className={styles.time}>
-                حرکت در: {formatTimeRemaining(trip.departureTime)}
-              </p>
-              <p className={styles.cost}>{trip.cost.toLocaleString()} تومان</p>
-              <button className={styles.bookBtn}>رزرو</button>
-            </div>
-          ))
+          filteredTrips.map((trip) => <RideCard key={trip.id} ride={trip} />)
         )}
       </div>
     </div>
