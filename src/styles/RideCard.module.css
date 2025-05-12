@@ -1,0 +1,9 @@
+.countdown {
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #ef4444;
+  background: #fff0f1;
+  padding: 6px 12px;
+  border-radius: 10px;
+}
