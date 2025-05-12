@@ -1,0 +1,120 @@
+/* src/styles/TripDetails.module.css */
+
+.container {
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #f8fafc, #e0f2fe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    direction: rtl;
+  }
+  
+  .card {
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .route {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .route h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1e3a8a;
+  }
+  
+  .route p {
+    font-size: 0.95rem;
+    color: #475569;
+  }
+  
+  .icon {
+    display: inline;
+    vertical-align: middle;
+    margin: 0 8px;
+  }
+  
+  .driver {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .driver img {
+    width: 64px;
+    height: 64px;
+    border-radius: 9999px;
+    object-fit: cover;
+    border: 2px solid #3b82f6;
+  }
+  
+  .driver h4 {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+  
+  .driver p {
+    font-size: 0.9rem;
+    color: #6b7280;
+  }
+  
+  .info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    margin: 1rem 0;
+    color: #1e40af;
+  }
+  
+  .price {
+    font-weight: bold;
+    color: #16a34a;
+  }
+  
+  .description h5 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #0f172a;
+  }
+  
+  .description p {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.6;
+  }
+  
+  .button {
+    width: 100%;
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.8rem;
+    border-radius: 0.75rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #2563eb;
+  }
+  
+  .back {
+    margin-top: 1rem;
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: underline;
+  }
+  

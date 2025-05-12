@@ -1,0 +1,146 @@
+/* src/styles/Trips.module.css */
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #f9fafb, #eef2f7);
+  padding: 2rem;
+  font-family: "Vazirmatn", sans-serif;
+  direction: rtl;
+}
+
+.header {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1e3a8a;
+  margin-bottom: 2rem;
+  animation: fadeInDown 0.8s ease forwards;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  animation: fadeIn 1s ease forwards;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+}
+
+.filterLabel {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  color: #374151;
+}
+
+.input,
+.select,
+.range {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  font-size: 0.95rem;
+  background: #fff;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input:focus,
+.select:focus,
+.range:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.tripCard {
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.tripCard:hover {
+  transform: translateY(-5px);
+}
+
+.tripRoute {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.75rem;
+}
+
+.tripInfo {
+  font-size: 0.9rem;
+  color: #475569;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.countdown {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #ef4444;
+  font-weight: 600;
+  text-align: left;
+}
+
+.noResults {
+  text-align: center;
+  font-size: 1rem;
+  color: #9ca3af;
+  margin-top: 2rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
