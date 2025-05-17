@@ -1,0 +1,28 @@
+.priceInputWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.priceInput {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-family: "Vazir", Tahoma, sans-serif;
+  direction: ltr;
+  text-align: left;
+}
+
+.priceInput:focus {
+  border-color: #1e88e5;
+  box-shadow: 0 0 5px rgba(30, 136, 229, 0.5);
+}
+
+.pricePreview {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: #555;
+  font-family: "Vazir", Tahoma, sans-serif;
+  text-align: right;
+}

@@ -9,7 +9,7 @@ import TestimonialSection from "../components/Testimonialsection";
 import LoginRegister from "../pages/LoginRegister";
 import Trips from "../pages/Trips";
 import Questions from "../pages/Questions";
-import AddTrip from "../pages/Addtrip";
+import AddTrip from "../pages/AddTrip";
 
 const AppRoutes = () => {
   const location = useLocation();
