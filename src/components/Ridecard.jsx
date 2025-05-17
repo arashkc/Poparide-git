@@ -4,51 +4,64 @@ import { Link } from "react-router-dom";
 import { convertToPersianNumbers } from "../utility/util";
 
 const RideCard = ({ ride }) => {
+  if (!ride) return null;
+
+  // Normalize data for compatibility
   const {
-    id,
+    id = "default-id",
     origin = "نامشخص",
     destination = "نامشخص",
     departureTime = new Date(),
-    cost = 0,
-    seatsTotal = 0,
-    seatsLeft = 0,
+    duration = "نامشخص",
     driver = { name: "نامشخص", avatar: "default-avatar.png" },
     car = "نامشخص",
-    duration = "نامشخص",
-  } = ride || {};
+  } = ride;
+
+  const totalSeats = ride.seatsTotal ?? ride.totalSeats ?? 0;
+  const availableSeats = ride.seatsLeft ?? ride.availableSeats ?? 0;
+  const price = ride.price ?? ride.cost ?? 0;
 
   const [countdown, setCountdown] = useState("");
 
-  // Format the date and time
-  const rideDateTime = new Date(departureTime);
-  const date = rideDateTime.toLocaleDateString("fa-IR"); // Persian date format
-  const time = rideDateTime.toLocaleTimeString("fa-IR", {
-    hour: "2-digit",
-    minute: "2-digit",
-  }); // Persian time format
-
   useEffect(() => {
+    const rideDateTime = new Date(departureTime);
+
+    if (isNaN(rideDateTime)) {
+      setCountdown("زمان نامعتبر");
+      return;
+    }
+
     const interval = setInterval(() => {
       const now = new Date();
       const diff = rideDateTime - now;
 
       if (diff > 86400000) {
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        setCountdown(`${days} روز باقی‌مانده`);
+        setCountdown(`${convertToPersianNumbers(days)} روز باقی‌مانده`);
       } else if (diff > 0) {
         const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
         const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        setCountdown(`در ${hours} ساعت و ${minutes} دقیقه`);
+        setCountdown(
+          `در ${convertToPersianNumbers(
+            hours
+          )} ساعت و ${convertToPersianNumbers(minutes)} دقیقه`
+        );
       } else {
         setCountdown("در حال حرکت یا تمام شده");
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [rideDateTime]);
+  }, [departureTime]);
+
+  const formattedDate = new Date(departureTime).toLocaleDateString("fa-IR");
+  const formattedTime = new Date(departureTime).toLocaleTimeString("fa-IR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   return (
-    <Link to={`/tripdetails/${id || "default-id"}`} className={styles.card}>
+    <Link to={`/tripdetails/${id}`} className={styles.card}>
       <div className={styles.header}>
         <div className={styles.route}>
           <span className={styles.city}>{origin}</span>
@@ -56,7 +69,7 @@ const RideCard = ({ ride }) => {
           <span className={styles.city}>{destination}</span>
         </div>
         <div className={styles.price}>
-          {convertToPersianNumbers((cost || 0).toLocaleString())} تومان
+          {convertToPersianNumbers(price.toLocaleString())} تومان
         </div>
       </div>
 
@@ -64,7 +77,7 @@ const RideCard = ({ ride }) => {
         <div className={styles.infoBlock}>
           <span>حرکت:</span>
           <strong>
-            {date} - {time}
+            {formattedDate} - {formattedTime}
           </strong>
         </div>
         <div className={styles.infoBlock}>
@@ -74,8 +87,8 @@ const RideCard = ({ ride }) => {
         <div className={styles.infoBlock}>
           <span>صندلی‌ها:</span>
           <strong>
-            {convertToPersianNumbers(seatsLeft)} از{" "}
-            {convertToPersianNumbers(seatsTotal)}
+            {convertToPersianNumbers(availableSeats)} از{" "}
+            {convertToPersianNumbers(totalSeats)}
           </strong>
         </div>
       </div>
@@ -85,12 +98,12 @@ const RideCard = ({ ride }) => {
       <div className={styles.footer}>
         <div className={styles.driver}>
           <img
-            src={driver?.avatar || "default-avatar.png"}
-            alt={driver?.name || "نامشخص"}
+            src={driver.avatar || "default-avatar.png"}
+            alt={driver.name || "نامشخص"}
             className={styles.avatar}
           />
           <div>
-            <div className={styles.name}>{driver?.name || "نامشخص"}</div>
+            <div className={styles.name}>{driver.name || "نامشخص"}</div>
             <div className={styles.car}>{car}</div>
           </div>
         </div>
