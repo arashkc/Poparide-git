@@ -9,7 +9,7 @@ const toPersianDigits = (num) =>
 const toEnglishDigits = (str) =>
   str.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
 
-// ✅ FIXED: Format Rials to full Toman string in Persian
+// Format Rials to full Toman string in Persian
 const formatPrice = (rialAmount) => {
   if (!rialAmount) return "";
 
@@ -28,7 +28,7 @@ const formatPrice = (rialAmount) => {
   return `${parts.join(" و ")} تومان`;
 };
 
-const PriceInput = ({ value, onChange }) => {
+const PriceInput = ({ value, onChange, className }) => {
   const inputRef = useRef(null);
   const [internalValue, setInternalValue] = useState(
     toPersianDigits(value || "")
@@ -57,15 +57,13 @@ const PriceInput = ({ value, onChange }) => {
         onChange={handleChange}
         placeholder="مثال: ۲۰۰۰۰۰۰"
         maxLength={8}
-        className={styles.priceInput}
+        className={`${styles.priceInput} ${className || ""}`}
         autoComplete="off"
         dir="rtl"
         style={{ direction: "rtl", textAlign: "right" }}
       />
       {value && (
-        <div className={styles.pricePreview}>
-          {formatPrice(Number(value))}
-        </div>
+        <div className={styles.pricePreview}>{formatPrice(Number(value))}</div>
       )}
     </div>
   );
