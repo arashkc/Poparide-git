@@ -9,37 +9,23 @@ const toPersianDigits = (num) =>
 const toEnglishDigits = (str) =>
   str.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
 
-// Format Rials to Toman string in Persian
+// ✅ FIXED: Format Rials to full Toman string in Persian
 const formatPrice = (rialAmount) => {
   if (!rialAmount) return "";
 
-  const toman = Math.floor(rialAmount / 10); // Convert to toman
-
-  if (toman < 1000) {
-    return `${toPersianDigits(toman)} تومان`;
-  }
-
-  if (toman < 1_000_000) {
-    const thousands = Math.floor(toman / 1000);
-    const remainder = toman % 1000;
-
-    return remainder === 0
-      ? `${toPersianDigits(thousands)} هزار تومان`
-      : `${toPersianDigits(thousands)} هزار و ${toPersianDigits(
-          remainder
-        )} تومان`;
-  }
+  const toman = Math.floor(rialAmount / 10);
 
   const millions = Math.floor(toman / 1_000_000);
-  const thousands = Math.floor((toman % 1_000_000) / 1000);
+  const thousands = Math.floor((toman % 1_000_000) / 1_000);
+  const remainder = toman % 1_000;
 
-  if (thousands === 0) {
-    return `${toPersianDigits(millions)} میلیون تومان`;
-  }
+  const parts = [];
 
-  return `${toPersianDigits(millions)} میلیون و ${toPersianDigits(
-    thousands
-  )} هزار تومان`;
+  if (millions > 0) parts.push(`${toPersianDigits(millions)} میلیون`);
+  if (thousands > 0) parts.push(`${toPersianDigits(thousands)} هزار`);
+  if (remainder > 0) parts.push(`${toPersianDigits(remainder)}`);
+
+  return `${parts.join(" و ")} تومان`;
 };
 
 const PriceInput = ({ value, onChange }) => {
@@ -70,14 +56,16 @@ const PriceInput = ({ value, onChange }) => {
         value={internalValue}
         onChange={handleChange}
         placeholder="مثال: ۲۰۰۰۰۰۰"
-        maxLength={8} // ✅ 8-digit limit
+        maxLength={8}
         className={styles.priceInput}
         autoComplete="off"
         dir="rtl"
         style={{ direction: "rtl", textAlign: "right" }}
       />
       {value && (
-        <div className={styles.pricePreview}>{formatPrice(Number(value))}</div>
+        <div className={styles.pricePreview}>
+          {formatPrice(Number(value))}
+        </div>
       )}
     </div>
   );
