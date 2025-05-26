@@ -10,6 +10,7 @@ import LoginRegister from "../pages/LoginRegister";
 import Trips from "../pages/Trips";
 import Questions from "../pages/Questions";
 import AddTrip from "../pages/AddTrip";
+import UserPanel from "../pages/UserPanel"; // ← Add this import
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -34,6 +35,8 @@ const AppRoutes = () => {
         <Route path="/trips" element={<Trips />} />
         <Route path="/questions" element={<Questions />} />
         <Route path="/add-trip" element={<AddTrip />} />
+        <Route path="/user-panel" element={<UserPanel />} />{" "}
+        {/* ← Add this route */}
       </Routes>
     </>
   );
