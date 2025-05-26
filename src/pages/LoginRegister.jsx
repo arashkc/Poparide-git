@@ -1,28 +1,54 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/LoginRegister.module.css";
+import { UserContext } from "../context/UserContext"; // adjust path if needed
 
 function LoginRegister() {
   const [isLogin, setIsLogin] = useState(true);
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [loginError, setLoginError] = useState("");
+
+  const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const validatePhone = (value) => {
     const pattern = /^09\d{9}$/;
     return pattern.test(value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validatePhone(phone)) {
       setPhoneError("شماره تلفن وارد شده درست نیست");
       return;
     }
-
     setPhoneError("");
-    // continue with login/signup logic
-    console.log(isLogin ? "Logging in..." : "Signing up...");
+    setLoginError("");
+
+    try {
+      // Simulate login/signup API call, replace with real API call
+      let userData;
+      if (isLogin) {
+        // Example: fake login
+        userData = { phone, name: "کاربر نمونه" }; // replace with your API result
+      } else {
+        // Example: fake signup
+        userData = { phone, name: "کاربر جدید" };
+      }
+
+      // Simulate success response delay
+      await new Promise((res) => setTimeout(res, 500));
+
+      // Set user in context
+      setUser(userData);
+
+      // Redirect to user panel after login/signup
+      navigate("/user-panel");
+    } catch (error) {
+      setLoginError("خطا در ورود، لطفا دوباره تلاش کنید");
+    }
   };
 
   return (
@@ -63,6 +89,12 @@ function LoginRegister() {
             </div>
           )}
 
+          {loginError && (
+            <div className={styles.errorText} style={{ marginBottom: 10 }}>
+              {loginError}
+            </div>
+          )}
+
           <button type="submit" className={styles.button}>
             {isLogin ? "ورود" : "ثبت‌نام"}
           </button>
@@ -75,6 +107,7 @@ function LoginRegister() {
             onClick={() => {
               setIsLogin(!isLogin);
               setPhoneError("");
+              setLoginError("");
             }}
           >
             {isLogin ? "ثبت‌نام" : "ورود"}
