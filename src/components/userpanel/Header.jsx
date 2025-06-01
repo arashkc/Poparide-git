@@ -1,18 +1,30 @@
-// src/components/UserPanel/Header.jsx
+// src/components/userpanel/Header.jsx
 
 import React from "react";
-import { Menu } from "lucide-react";
 
-const Header = ({ toggleSidebar }) => {
+const Header = ({ user }) => {
   return (
-    <header className="lg:hidden flex items-center justify-between p-4 border-b bg-white shadow-sm">
-      <h1 className="text-xl font-bold text-gray-800">پنل کاربری</h1>
-      <button
-        onClick={toggleSidebar}
-        className="p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-      >
-        <Menu size={24} />
-      </button>
+    <header
+      className="flex items-center justify-between px-4 py-3 bg-white shadow-md"
+      role="banner"
+    >
+      <h1 className="text-xl font-bold">Poparide</h1>
+      <div className="flex items-center gap-4">
+        <button
+          className="hover:bg-gray-100 p-2 rounded"
+          aria-label="Post a ride"
+        >
+          + Post
+        </button>
+        <button className="hover:bg-gray-100 p-2 rounded" aria-label="Search">
+          🔍
+        </button>
+        <img
+          src={user.avatar}
+          alt={`Profile of ${user.name}`}
+          className="w-8 h-8 rounded-full"
+        />
+      </div>
     </header>
   );
 };

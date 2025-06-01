@@ -22,12 +22,13 @@ const UserPanel = () => {
     if (!loading && !user) navigate("/loginregister");
   }, [user, loading, navigate]);
 
-  if (loading)
+  if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
         در حال بارگذاری...
       </div>
     );
+  }
 
   if (!user) return null;
 
@@ -39,13 +40,15 @@ const UserPanel = () => {
           activeSection={activeSection}
           setActiveSection={setActiveSection}
         />
-        <main className="flex-1 overflow-y-auto p-6 bg-gray-50">
-          {activeSection === "profile" && <ProfileOverview user={user} />}
-          {activeSection === "trips" && <TripsSection />}
-          {activeSection === "vehicles" && <VehiclesSection />}
-          {activeSection === "payments" && <PaymentMethods />}
-          {activeSection === "settings" && <AccountSettings />}
-          {activeSection === "support" && <SupportSection />}
+        <main className="flex-1 overflow-y-auto p-6 bg-gray-50" role="main">
+          <section aria-labelledby="profile-overview-heading">
+            {activeSection === "profile" && <ProfileOverview user={user} />}
+            {activeSection === "trips" && <TripsSection />}
+            {activeSection === "vehicles" && <VehiclesSection />}
+            {activeSection === "payments" && <PaymentMethods />}
+            {activeSection === "settings" && <AccountSettings />}
+            {activeSection === "support" && <SupportSection />}
+          </section>
         </main>
       </div>
     </div>
