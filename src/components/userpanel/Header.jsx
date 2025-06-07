@@ -1,29 +1,25 @@
 // src/components/userpanel/Header.jsx
-
 import React from "react";
+import { HiOutlineMenu } from "react-icons/hi";
+import { FaUserCircle } from "react-icons/fa";
 
 const Header = ({ user }) => {
   return (
-    <header
-      className="flex items-center justify-between px-4 py-3 bg-white shadow-md"
-      role="banner"
-    >
-      <h1 className="text-xl font-bold">Poparide</h1>
+    <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-3 flex items-center justify-between">
+      {/* Left: Logo or Toggle Button */}
       <div className="flex items-center gap-4">
-        <button
-          className="hover:bg-gray-100 p-2 rounded"
-          aria-label="Post a ride"
-        >
-          + Post
-        </button>
-        <button className="hover:bg-gray-100 p-2 rounded" aria-label="Search">
-          🔍
-        </button>
-        <img
-          src={user.avatar}
-          alt={`Profile of ${user.name}`}
-          className="w-8 h-8 rounded-full"
-        />
+        <HiOutlineMenu className="text-2xl text-gray-500 cursor-pointer md:hidden" />
+        <span className="text-xl font-semibold text-indigo-600">
+          پنل کاربری
+        </span>
+      </div>
+
+      {/* Right: User Info */}
+      <div className="flex items-center gap-3">
+        <span className="text-sm text-gray-700 hidden sm:block">
+          {user?.name || "کاربر"}
+        </span>
+        <FaUserCircle className="text-3xl text-gray-500" />
       </div>
     </header>
   );
