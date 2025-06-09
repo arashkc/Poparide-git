@@ -1,22 +1,11 @@
-// src/pages/UserPanel.jsx
-
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
-
-import Sidebar from "../components/userpanel/Sidebar";
-import Header from "../components/userpanel/Header";
-import ProfileOverview from "../components/userpanel/ProfileOverview";
-import TripsSection from "../components/userpanel/TripsSection";
-import VehiclesSection from "../components/userpanel/VehiclesSection";
-import PaymentMethods from "../components/userpanel/PaymentMethods";
-import AccountSettings from "../components/userpanel/AccountSettings";
-import SupportSection from "../components/userpanel/SupportSection";
+import UserPanelHeader from "../components/userpanel/UserPanelHeader";
 
 const UserPanel = () => {
   const { user, loading } = useContext(UserContext);
   const navigate = useNavigate();
-  const [activeSection, setActiveSection] = useState("profile");
 
   useEffect(() => {
     if (!loading && !user) navigate("/loginregister");
@@ -30,27 +19,29 @@ const UserPanel = () => {
     );
   }
 
-  if (!user) return null;
-
   return (
-    <div className="flex flex-col h-screen">
-      <Header user={user} />
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar
-          activeSection={activeSection}
-          setActiveSection={setActiveSection}
-        />
-        <main className="flex-1 overflow-y-auto p-6 bg-gray-50" role="main">
-          <section aria-labelledby="profile-overview-heading">
-            {activeSection === "profile" && <ProfileOverview user={user} />}
-            {activeSection === "trips" && <TripsSection />}
-            {activeSection === "vehicles" && <VehiclesSection />}
-            {activeSection === "payments" && <PaymentMethods />}
-            {activeSection === "settings" && <AccountSettings />}
-            {activeSection === "support" && <SupportSection />}
-          </section>
-        </main>
-      </div>
+    <div className="flex flex-col min-h-screen bg-gray-50" dir="rtl">
+      <UserPanelHeader user={user} />
+      <main className="flex-1 px-4 py-10 max-w-4xl mx-auto text-right">
+        <div className="text-center">
+          <img
+            src={user?.photo || "/avatar.png"}
+            className="w-24 h-24 rounded-full mx-auto mb-4"
+            alt="avatar"
+          />
+          <h2 className="text-2xl font-semibold">
+            سلام {user?.username || "کاربر"}،
+          </h2>
+          <p className="text-gray-600 mb-2">به همسفر خوش آمدی!</p>
+          <div className="flex justify-center gap-6 text-sm text-gray-500 mt-4">
+            <span>🚫 هنوز کیلومتری اشتراک‌گذاری نشده</span>
+            <span>👤 هنوز فعالیتی ثبت نشده</span>
+          </div>
+          <button className="mt-6 bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800 transition">
+            شروع کن
+          </button>
+        </div>
+      </main>
     </div>
   );
 };
