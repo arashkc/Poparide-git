@@ -33,6 +33,15 @@ const UserPanel = () => {
             سلام {user?.username || "کاربر"}،
           </h2>
           <p className="text-gray-600 mb-2">به همسفر خوش آمدی!</p>
+          <div className="mt-8 flex justify-center gap-4 flex-wrap">
+            <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
+              🛣 پست سفر جدید
+            </button>
+            <button className="bg-white text-blue-600 border border-blue-600 px-6 py-2 rounded-full hover:bg-blue-50 transition">
+              🔍 جستجوی سفر
+            </button>
+          </div>
+
           <div className="flex justify-center gap-6 text-sm text-gray-500 mt-4">
             <span>🚫 هنوز کیلومتری اشتراک‌گذاری نشده</span>
             <span>👤 هنوز فعالیتی ثبت نشده</span>

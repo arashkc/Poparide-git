@@ -1,43 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 const UserMenu = ({ user }) => {
   const [open, setOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  // Close dropdown if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <div className="relative">
-      <img
-        src={user.avatar || "https://via.placeholder.com/40"}
-        alt="User"
-        className="w-10 h-10 rounded-full cursor-pointer"
-        onClick={() => setOpen(!open)}
-      />
+    <div className="relative" ref={menuRef}>
+      <button
+        onClick={() => setOpen((prev) => !prev)}
+        className="focus:outline-none"
+      >
+        <img
+          src={user?.photo || "/avatar.png"}
+          alt="User"
+          className="w-10 h-10 rounded-full border"
+        />
+      </button>
+
       {open && (
-        <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow p-2 space-y-2">
-          <p className="font-medium">{user.name}</p>
-          <button className="w-full text-left hover:bg-gray-100 p-2">
-            Your profile
-          </button>
-          <button className="w-full text-left hover:bg-gray-100 p-2">
-            Account settings
-          </button>
-          <button className="w-full text-left hover:bg-gray-100 p-2">
-            Payments
-          </button>
-          <button className="w-full text-left hover:bg-gray-100 p-2">
-            Payouts
-          </button>
-          <button className="w-full text-left hover:bg-gray-100 p-2">
-            Help
-          </button>
-          <button className="w-full text-left hover:bg-gray-100 p-2">
-            Cool stuff
-          </button>
-          <button className="w-full text-left hover:bg-gray-100 p-2">
-            Students
-          </button>
-          <button className="w-full text-left hover:bg-gray-100 p-2 text-red-500">
-            Log out
-          </button>
+        <div
+          className="absolute left-0 mt-2 w-48 bg-white shadow-md rounded-md z-50 text-right"
+          dir="rtl"
+        >
+          <ul className="py-2 text-sm text-gray-700">
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              پروفایل
+            </li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              تنظیمات
+            </li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">خروج</li>
+          </ul>
         </div>
       )}
     </div>
