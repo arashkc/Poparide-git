@@ -11,7 +11,7 @@ const Features = () => {
           <div className="p-8 bg-white shadow-xl rounded-lg transform hover:scale-105 transition duration-300">
             <h3 className="text-2xl font-semibold mb-4">سفرهای ارزان</h3>
             <p className="text-lg text-gray-600">
-              با اشتراک‌گذاری سفرها، در هزینه‌های روزانه‌تان صرفه‌جویی کنید.
+              .با اشتراک‌گذاری سفرها، در هزینه‌های روزانه‌تان صرفه‌جویی کنید.
             </p>
           </div>
           <div className="p-8 bg-white shadow-xl rounded-lg transform hover:scale-105 transition duration-300">
